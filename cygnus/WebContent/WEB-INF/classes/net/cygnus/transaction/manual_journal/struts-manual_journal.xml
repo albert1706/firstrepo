@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="manual_journal" namespace="/cygnus/transaction/manual_journal" extends="jfx-default">
+	
+		<action name="getListAccFromSegment" class="net.cygnus.transaction.manual_journal.web.action.ManualJournalInvalAction" method="getListAccFromSegment">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="ignoreHierarchy">false</param>
+			  	<param name="includeProperties">
+      				rsl.*,rows,page,sord,sidx,total,totalrows,records
+    		  	</param>
+			</result>
+			<result name="error">/main/error.jsp</result>
+		</action>
+	
+		<!-- INVAL ACTION --> 
+		<action name="ManualJournalInval">
+		    <interceptor-ref name="ModuleSessionStack"></interceptor-ref>
+			<result type="redirectAction">prepareCreate</result>
+		</action>
+		<action name="prepareCreate" class="net.cygnus.transaction.manual_journal.web.action.ManualJournalInvalAction" method="prepareCreate">
+		 	<result>/transaction/manual_journal/manual_journal_new.jsp</result>   
+		</action>
+		
+		<!-- VAL ACTION -->
+		<action name="DoTransaction" class="net.cygnus.transaction.manual_journal.web.action.ManualJournalValAction" method="doTransaction">
+		    <interceptor-ref name="FormSubmissionStack"></interceptor-ref>
+		    <result name="input">/transaction/manual_journal/manual_journal_new.jsp</result>
+		     <result name="invalid.token">/transaction/manual_journal/manual_journal_new.jsp</result>
+		 	<result>/transaction/manual_journal/manual_journal_new.jsp</result>   
+		</action>
+		
+	</package>
+
+</struts>

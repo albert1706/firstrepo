@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+-->
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.ui.theme" value="nds" />
+    <constant name="struts.convention.default.parent.package" value="json-default"/>
+    <constant name="struts.convention.classes.reload" value="true" />
+	<constant name="struts.custom.i18n.resources" value="messageResources" />
+    
+    
+	<include file="id/co/nds/webapp/usergroup/struts-usergroup.xml" />
+	<include file="id/co/nds/webapp/user/struts-user.xml" />
+	<include file="id/co/nds/webapp/password/struts-password.xml" />
+	<include file="id/co/nds/webapp/log/struts-log.xml" />
+	<include file="id/co/nds/reportengine/struts-reportengine.xml" />
+	<include file="id/co/nds/webapp/exception/struts-exception.xml" />
+	
+
+    <!-- CYGNUS START ! -->
+    <include file="net/cygnus/parameter/acc/level1/struts-acc_level1.xml" />
+    <include file="net/cygnus/parameter/acc/level2/struts-acc_level2.xml" />
+    <include file="net/cygnus/parameter/acc/level3/struts-acc_level3.xml" />
+    <include file="net/cygnus/parameter/acc/level4/struts-acc_level4.xml" />
+    <include file="net/cygnus/branch/struts-branch.xml" />
+    <include file="net/cygnus/segment/struts-segment.xml" />
+    <include file="net/cygnus/budget/plan/struts-budget.xml" />
+    <include file="net/cygnus/budget/activation/struts-budget_activation.xml" />
+    <include file="net/cygnus/coa/struts-coa.xml" />
+    <include file="net/cygnus/transaction/mapping/struts-trx.xml" />
+    <include file="net/cygnus/transaction/cash_offering/struts-trx_cash_offering.xml" />
+    <include file="net/cygnus/transaction/bank_deposit/struts-trx_bank_deposit.xml" />
+    <include file="net/cygnus/transaction/expenses/struts-expenses.xml" />
+    <include file="net/cygnus/transaction/manual_journal/struts-manual_journal.xml" />
+    <include file="net/cygnus/report/journal/struts-journal.xml" />
+    <include file="net/cygnus/report/akun/struts-akun.xml" />
+    <include file="net/cygnus/asset/struts-asset.xml" />
+    <!-- CYGNUS END ! -->
+     
+    <!-- include file="showcase.xml" / -->
+    <package name="jfx-default" namespace="/" extends="jfx-web-core">
+    	
+        <!-- ACTION LIST -->
+        <action name="InitAction" class="id.co.nds.webapp.startup.FirstAction" method="InitApp">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="exceptionHandler"></interceptor-ref>
+     		<result name="firstMethodSuccess">/main/login.jsp</result>
+     	</action>
+     	
+        <action name="HomeAction" class="id.co.nds.webapp.startup.FirstAction" method="Home">
+     		<result name="HomeSuccess">/main/dashboard.jsp</result>
+     	</action>
+        
+		<action name="LoginAction" class="id.co.nds.webapp.login.web.action.LoginValidAction" method="doAuthenticate">
+		    <interceptor-ref name="defaultStack"></interceptor-ref>
+		    <interceptor-ref name="xss" />
+		    <interceptor-ref name="exceptionHandler"></interceptor-ref>
+		    <interceptor-ref name="token"></interceptor-ref>
+     		<result name="input">/main/login.jsp</result>
+		 	<result name="error">/main/login.jsp</result>
+		 	<result name="invalid.token">/main/login.jsp</result>
+		 	<result name="change.password" type="redirect">/id/co/nds/webapp/password/PrepareChangePassLoginAct</result>
+			<result type="redirect">MainAction</result>
+		</action>
+ 
+ 		<action name="MainAction" class="id.co.nds.webapp.MainAction">
+ 			<interceptor-ref name="defaultStack"></interceptor-ref>
+ 			<result name="error">/main/login.jsp</result>
+ 			<result>/main/dashboard.jsp</result>
+ 		</action>
+ 
+		<action name="LogoutAction" class="id.co.nds.webapp.logout.web.action.LogoutValidAction">
+		    <interceptor-ref name="defaultStack"></interceptor-ref>
+		    <interceptor-ref name="exceptionHandler"></interceptor-ref>
+			<result type="redirect">InitAction</result>
+		</action>
+
+	</package>
+	
+</struts>

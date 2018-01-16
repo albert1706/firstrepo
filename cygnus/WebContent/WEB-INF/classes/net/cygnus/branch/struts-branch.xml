@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="branch" namespace="/cygnus/branch" extends="jfx-default">
+	
+        <!-- MAIN ACTION --> 
+		<action name="getListBranch" class="net.cygnus.branch.web.action.BranchMainAction" method="getListForCombo">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="ignoreHierarchy">false</param>
+			  	<param name="includeProperties">
+      				rsl.*,rows,page,sord,sidx,total,totalrows,records
+    		  	</param>
+			</result>
+			<result name="error">/main/error.jsp</result>
+		</action>
+			
+	</package>
+
+</struts>

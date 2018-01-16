@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_budget" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bdbfd13c-a356-45b5-bc6b-78e9c6bfc7a0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="4cfd5c27-09b7-4928-8592-eb8d69ae93e1">
+		<field name="coa" class="java.lang.String"/>
+		<field name="name" class="java.lang.String"/>
+		<field name="budget" class="java.math.BigDecimal"/>
+		<field name="realization" class="java.math.BigDecimal"/>
+		<field name="statusBudget" class="java.lang.String"/>
+	</subDataset>
+	<field name="bidang" class="java.lang.String"/>
+	<field name="listRealisasi" class="java.util.Collection"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="555" height="47" uuid="f25580b9-7458-4119-84a2-9ae952b67254"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN ANGGARAN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="50" width="555" height="20" uuid="85b25e61-070a-478c-89e0-3e922a7d7eb8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tahun Anggaran : " + new SimpleDateFormat("yyyy").format(new Date())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="142" y="47" width="274" height="1" uuid="5e39f55c-f036-4df5-b74c-472edd7e5c98"/>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="37" backcolor="#0066FF" uuid="4b0566fb-c0ef-4e1a-b3a0-28aabd4f9d23"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="114" height="37" forecolor="#FFFFFF" uuid="e865df4e-e25b-4b7c-afb2-651ac03c8ce3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bidang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="3" width="184" height="37" forecolor="#FFFFFF" uuid="ce0c801d-2330-4761-9abd-4b65ead1e33f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="2" width="102" height="37" forecolor="#FFFFFF" uuid="85038895-7e24-4920-a64a-9550fe21c603"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Anggaran]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="2" width="102" height="37" forecolor="#FFFFFF" uuid="0dac16c2-1d5b-4750-aa76-c6c83efdb300"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Realisasi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="2" width="53" height="37" forecolor="#FFFFFF" uuid="41e4201c-ca28-4665-8801-8fd0bb4eacd2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Over/
+Under]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="114" height="20" uuid="ab2fd465-9e03-4dae-a304-cb725bd9acb8"/>
+				<textFieldExpression><![CDATA[$F{bidang}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="114" y="0" width="441" height="20" uuid="df05fd07-5a20-49c5-a59b-07fd3f72197f"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dataset1" uuid="21a74c95-d06c-4245-b3e9-6388c1fd3a97">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listRealisasi})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="20" width="441">
+						<textField>
+							<reportElement x="0" y="0" width="184" height="20" uuid="0db5b67b-247e-458a-90e0-acd7fe1b2dfc"/>
+							<textFieldExpression><![CDATA[$F{coa} + " - " + $F{name}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="186" y="0" width="100" height="20" uuid="20f60a4f-0f26-4249-a902-7c1b8dd1412f"/>
+							<textFieldExpression><![CDATA[$F{budget}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="288" y="0" width="100" height="20" uuid="d74b8c58-7c95-4628-a0c7-85b00630695d"/>
+							<textFieldExpression><![CDATA[$F{realization}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="388" y="0" width="53" height="20" uuid="3d4e549e-39ee-4b01-bab8-160b67b9ac83"/>
+							<textFieldExpression><![CDATA[$F{statusBudget}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

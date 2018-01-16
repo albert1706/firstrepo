@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<data-access>
+    <!--GENERATE HOST UPLOAD-->
+
+	<statement id="journal">
+    	<![CDATA[
+			select tx.trx_id, tx.trx_name, tx.trx_type, tx.trx_date, coa.coa_id, coa.coa_name, coa.acc_no, gl.debit_base as debet, gl.credit_base as credit, tx.description, coa.segment_id, segment.segment_name
+			from tx_transaction tx
+			inner join tx_gl gl on tx.trx_id = gl.trx_id
+			inner join ms_coa coa on gl.coa = coa.coa_id
+			inner join ms_segment segment on segment.segment_id = coa.segment_id
+			where 1=1 AND {criterias}
+			order by trx_date desc, trx_id, trx_type
+    	]]>
+    </statement>
+    
+    <statement id="akun">
+    	<![CDATA[
+	    	select one.acc_lv1_id, one.acc_lv1_name, two.acc_lv2_id, two.acc_lv2_name, three.acc_lv3_id, three.acc_lv3_name, four.acc_lv4_id, four.acc_lv4_name 
+			from ms_acc_lv1 one 
+			left join ms_acc_lv2 two on two.parent_id = one.id::int8
+			left join ms_acc_lv3 three on three.parent_id = two.id::int8
+			left join ms_acc_lv4 four on four.parent_id = three.id::int8
+			order by one.acc_lv1_id, two.acc_lv2_id, three.acc_lv3_id, four.acc_lv4_id
+    	]]>
+    </statement>
+    
+</data-access>

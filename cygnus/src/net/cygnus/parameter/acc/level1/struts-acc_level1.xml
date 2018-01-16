@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="acc_level1" namespace="/cygnus/acc/acc_level1" extends="jfx-default">
+	
+        <!-- MAIN ACTION --> 
+		<action name="AccountLevel1MainAction">
+		    <interceptor-ref name="ModuleSessionStack"></interceptor-ref>
+			<result>/accounting/acc_level1/accl1_maintenance.jsp</result>
+		</action>
+		<action name="AccountLevel1SearchAction" class="net.cygnus.parameter.acc.level1.web.action.AccountLevel1MainAction" method="doSearch">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="ignoreHierarchy">false</param>
+			  	<param name="includeProperties">
+      				rsl.*,rows,page,sord,sidx,total,totalrows,records
+    		  	</param>
+			</result>
+			<result name="error">/main/error.jsp</result>
+		</action>
+		
+		<action name="AccountLevel1PrepareCombo" class="net.cygnus.parameter.acc.level1.web.action.AccountLevel1MainAction" method="prepareCombo">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="ignoreHierarchy">false</param>
+			  	<param name="includeProperties">
+      				rsl.*,rows,page,sord,sidx,total,totalrows,records
+    		  	</param>
+			</result>
+			<result name="error">/main/error.jsp</result>
+		</action>
+				
+		<!-- INVAL ACTION --> 
+		<action name="PrepareCreateAct">
+		 	<result>/accounting/acc_level1/accl1_maintenance_new.jsp</result>   
+		</action>
+		<action name="PrepareUpdateAct" class="net.cygnus.parameter.acc.level1.web.action.AccountLevel1InvalAction" method="prepareUpdate">
+		 	<result>/accounting/acc_level1/accl1_maintenance_update.jsp</result>   
+		</action>
+		
+		
+		<!-- VAL ACTION -->
+		<action name="DoCreateAct" class="net.cygnus.parameter.acc.level1.web.action.AccountLevel1ValAction" method="doCreate">
+		    <interceptor-ref name="FormSubmissionStack"></interceptor-ref>
+		    <result name="input">/accounting/acc_level1/accl1_maintenance_new.jsp</result>
+		     <result name="invalid.token">/accounting/acc_level1/accl1_maintenance.jsp</result>
+		 	<result>/accounting/acc_level1/accl1_maintenance.jsp</result>   
+		</action>
+		
+		<action name="DoUpdateAct" class="net.cygnus.parameter.acc.level1.web.action.AccountLevel1ValAction" method="doUpdate">
+		    <interceptor-ref name="FormSubmissionStack"></interceptor-ref>
+		    <result name="input">/accounting/acc_level1/accl1_maintenance_new.jsp</result>
+		     <result name="invalid.token">/accounting/acc_level1/accl1_maintenance.jsp</result>
+		 	<result>/accounting/acc_level1/accl1_maintenance.jsp</result>   
+		</action>
+			
+	</package>
+
+</struts>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="bank_deposit" namespace="/cygnus/transaction/bank_deposit" extends="jfx-default">
+	
+		<!-- INVAL ACTION --> 
+		<action name="BankDepositInval">
+		    <interceptor-ref name="ModuleSessionStack"></interceptor-ref>
+			<result type="redirectAction">prepareCreate</result>
+		</action>
+		<action name="prepareCreate" class="net.cygnus.transaction.bank_deposit.web.action.BankDepositInval" method="prepareCreate">
+		 	<result>/transaction/bank_deposit/bank_deposit_new.jsp</result>   
+		</action>
+		
+		<!-- VAL ACTION -->
+		<action name="DoTransaction" class="net.cygnus.transaction.bank_deposit.web.action.BankDepositVal" method="doTransaction">
+		    <interceptor-ref name="FormSubmissionStack"></interceptor-ref>
+		    <result name="input">/transaction/bank_deposit/bank_deposit_new.jsp</result>
+		     <result name="invalid.token">/transaction/bank_deposit/bank_deposit_new.jsp</result>
+		 	<result>/transaction/bank_deposit/bank_deposit_new.jsp</result>   
+		</action>
+		
+	</package>
+
+</struts>

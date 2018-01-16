@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="rpt_akun" namespace="/cygnus/report/akun" extends="jfx-default">
+	
+		<result-types> 
+		  <result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult" default="false"/> 
+		</result-types>
+	
+         <!-- MAIN ACTION --> 
+		<action name="prepareSearch">
+			<result name="success" type="chain">DoDownloadReport</result>
+		</action>
+		<action name="DoDownloadReport" class="net.cygnus.report.akun.web.action.RptAkunInvalAction" method="doDownloadReport">
+		     <result name="success" type="stream">
+				<param name="inputName">is</param>
+				<param name="contentType">application/pdf</param>
+			    <param name="contentDisposition">attachment;filename="report.pdf"</param>
+		     </result>
+		</action>
+		<action name="DoDownloadReport2" class="net.cygnus.report.akun.web.action.RptAkunInvalAction" method="doDownloadReport">
+		     <result name="success" type="jasper">
+		         <param name="location">WEB-INF/classes/net/cygnus/report/akun/report/rpt_akun.jasper</param>
+ 		         <param name="dataSource">listItems</param>
+ 		         <param name="format">PDF</param>
+		         <param name="reportParameters">paramReports</param>
+		         <param name="contentDisposition">inline</param>
+		         <param name="documentName">Akun-GKI-Samanhudi.pdf</param>
+		     </result>
+		</action>
+		
+			
+	</package>
+
+</struts>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<data-access>
+    <!--GENERATE HOST UPLOAD-->
+
+    <statement id="searchUser">
+    	<![CDATA[
+			SELECT usr.*, grp.group_name FROM ms_user usr
+			INNER JOIN ms_user_group grp ON usr.group_id = grp.group_id
+			WHERE usr.rec_status = 'A' {groupId} {criterias}
+    	]]>
+    </statement>
+</data-access>

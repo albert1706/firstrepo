@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="budget_plan" namespace="/cygnus/budget/plan/budget_plan" extends="jfx-default">
+	
+		<!-- MAIN ACTION -->
+		<action name="BudgetMainAction">
+		    <interceptor-ref name="ModuleSessionStack"></interceptor-ref>
+			<result>/budget/plan/budget_plan_maintenance.jsp</result>
+		</action> 
+		<action name="getListCoa" class="net.cygnus.budget.plan.web.action.BudgetPlanMainAction" method="doSearch">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="ignoreHierarchy">false</param>
+			  	<param name="includeProperties">
+      				rsl.*,rows,page,sord,sidx,total,totalrows,records
+    		  	</param>
+			</result>
+			<result name="error">/main/error.jsp</result>
+		</action>
+		
+		<!-- INVAL ACTION --> 
+		<action name="PrepareCreateAct" class="net.cygnus.budget.plan.web.action.BudgetPlanInvalAction" method="prepareSetPeriod">
+		 	<result>/budget/plan/budget_plan_new_period.jsp</result>   
+		</action>
+		
+		<!-- VAL ACTION -->
+		<action name="createBudgetPeriod" class="net.cygnus.budget.plan.web.action.BudgetPlanValAction" method="createBudgetPeriod">
+		 	<result>/budget/plan/budget_plan_new_period.jsp</result>   
+		</action>
+		<action name="DoCreate" class="net.cygnus.budget.plan.web.action.BudgetPlanValAction" method="doCreate">
+		 	<result name="success" type="json"></result>   
+		</action>
+	</package>
+
+</struts>

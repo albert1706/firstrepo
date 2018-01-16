@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<data-access>
+    <statement id="getClassCodeCoaMap">
+    	<![CDATA[
+    		select coa.coa_id, coa.coa_name, coa.branch_id, coa.coa_budget, coa.coa_type, coa.segment_id, mp.* from mp_acc_trx mp, ms_coa coa
+			where mp.acc_no = coa.acc_no and coa.rec_status = 'A' and {criterias}
+    	]]>
+    </statement>
+    <statement id="getClassCodeAccMap">
+    	<![CDATA[
+    		select acc.acc_name as coa_name, mp.* from mp_acc_trx mp, ms_acc_d acc
+			where mp.acc_no = acc.acc_no and acc.rec_status = 'A' and {criterias}
+    	]]>
+    </statement>
+    <statement id="getMapping">
+    	<![CDATA[
+    		select distinct mp.* from mp_acc_trx mp, ms_coa coa
+			where mp.rec_status = 'A' and mp.acc_no = coa.acc_no and trx = {trxType} and {criterias}
+    	]]>
+    </statement>
+</data-access>

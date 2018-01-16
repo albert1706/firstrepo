@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="asset" namespace="/cygnus/asset" extends="jfx-default">
+	
+        <!-- MAIN ACTION --> 
+		<action name="AssetMainAction">
+		    <interceptor-ref name="ModuleSessionStack"></interceptor-ref>
+			<result>/asset/asset_maintenance.jsp</result>
+		</action>
+		<action name="AssetSearchAction" class="net.cygnus.asset.web.action.AssetMainAction" method="doSearch">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="ignoreHierarchy">false</param>
+			  	<param name="includeProperties">
+      				rsl.*,rows,page,sord,sidx,total,totalrows,records
+    		  	</param>
+			</result>
+		</action>
+				
+		<!-- INVAL ACTION --> 
+		<action name="PrepareCreateAct" class="net.cygnus.asset.web.action.AssetInvalAction" method="prepareCreate">
+		 	<result>/asset/asset_maintenance_new.jsp</result>   
+		</action>
+		<action name="PrepareUpdateAct" class="net.cygnus.asset.web.action.AssetInvalAction" method="prepareUpdate">
+		 	<result>/asset/asset_maintenance_update.jsp</result>   
+		</action>
+		
+		
+		<!-- VAL ACTION -->
+		<action name="DoCreateAct" class="net.cygnus.asset.web.action.AssetValAction" method="doCreate">
+		    <interceptor-ref name="FormSubmissionStack"></interceptor-ref>
+		    <result name="input">/asset/asset_maintenance_new.jsp</result>
+		     <result name="invalid.token">/asset/asset_maintenance.jsp</result>
+		 	<result>/asset/asset_maintenance.jsp</result>   
+		</action>
+		
+		<action name="DoUpdateAct" class="net.cygnus.asset.web.action.AssetValAction" method="doUpdate">
+		    <interceptor-ref name="FormSubmissionStack"></interceptor-ref>
+		    <result name="input">/asset/asset_maintenance_new.jsp</result>
+		     <result name="invalid.token">/asset/asset_maintenance.jsp</result>
+		 	<result>/asset/asset_maintenance.jsp</result>   
+		</action>
+			
+	</package>
+
+</struts>

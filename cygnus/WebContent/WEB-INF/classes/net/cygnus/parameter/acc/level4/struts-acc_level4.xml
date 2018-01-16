@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="acc_level4" namespace="/cygnus/acc/acc_level4" extends="jfx-default">
+	
+        <!-- MAIN ACTION --> 
+		<action name="AccountLevel4MainAction">
+		    <interceptor-ref name="ModuleSessionStack"></interceptor-ref>
+			<result>/accounting/acc_level4/accl4_maintenance.jsp</result>
+		</action>
+		<action name="AccountLevel4SearchAction" class="net.cygnus.parameter.acc.level4.web.action.AccountLevel4MainAction" method="doSearch">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="ignoreHierarchy">false</param>
+			  	<param name="includeProperties">
+      				rsl.*,rows,page,sord,sidx,total,totalrows,records
+    		  	</param>
+			</result>
+		</action>
+				
+		<!-- INVAL ACTION --> 
+		<action name="PrepareCreateAct" class="net.cygnus.parameter.acc.level4.web.action.AccountLevel4InvalAction" method="prepareCreate">
+		 	<result>/accounting/acc_level4/accl4_maintenance_new.jsp</result>   
+		</action>
+		<action name="PrepareUpdateAct" class="net.cygnus.parameter.acc.level4.web.action.AccountLevel4InvalAction" method="prepareUpdate">
+		 	<result>/accounting/acc_level4/accl4_maintenance_update.jsp</result>   
+		</action>
+		
+		
+		<!-- VAL ACTION -->
+		<action name="DoCreateAct" class="net.cygnus.parameter.acc.level4.web.action.AccountLevel4ValAction" method="doCreate">
+		    <interceptor-ref name="FormSubmissionStack"></interceptor-ref>
+		    <result name="input">/accounting/acc_level4/accl4_maintenance_new.jsp</result>
+		     <result name="invalid.token">/accounting/acc_level4/accl4_maintenance.jsp</result>
+		 	<result>/accounting/acc_level4/accl4_maintenance.jsp</result>   
+		</action>
+		
+		<action name="DoUpdateAct" class="net.cygnus.parameter.acc.level4.web.action.AccountLevel4ValAction" method="doUpdate">
+		    <interceptor-ref name="FormSubmissionStack"></interceptor-ref>
+		    <result name="input">/accounting/acc_level4/accl4_maintenance_update.jsp</result>
+		     <result name="invalid.token">/accounting/acc_level4/accl4_maintenance.jsp</result>
+		 	<result>/accounting/acc_level4/accl4_maintenance.jsp</result>   
+		</action>
+			
+	</package>
+
+</struts>

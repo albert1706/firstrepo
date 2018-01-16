@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!-- REGION DATA SOURCE CONFIGURATION -->
+	<!-- USING JDBC as a Data Source -->
+	<bean id="JNDIDataSource" class="id.co.nds.dbaccess.connection.implement.DataSourceJndiImpl" singleton="true">
+		<property name="listJNDI">
+			<props>
+			<prop key="default">jdbc/cygnus</prop>
+				<!-- <prop key="default">java:jboss/jdbc/cygnus</prop> -->
+				<!-- <prop key="jdbcMandiri">jdbc/mik.mandiri</prop>  -->
+				<!-- <prop key="jdbcDTOBMMIKRO">jdbc/mik.mandiri.mikro</prop>  -->
+			</props>
+		</property>
+	</bean>
+	
+	<!-- USING DRIVER MANAGER as a Data Source -->
+	<bean id="DriverManagerDataSource" class="id.co.nds.dbaccess.connection.implement.DataSourceDriverManagerImpl" singleton="true">
+		<property name="listDriverProp">
+			<list>
+				<!-- <ref bean="defaultDSDriver" /> -->
+				<!-- <ref bean="default2DSDriver" /> -->
+			</list>
+		</property>
+	</bean>
+	<bean id="defaultDSDriver" class="id.co.nds.dbaccess.connection.implement.SimpleDSEnt" singleton="true">
+		<property name="name" value="driverManaMySQL" />
+		<property name="driver" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/test" />
+		<property name="username" value="root" />
+		<property name="password" value="passw0rd" />
+	</bean>
+	<bean id="default2DSDriver" class="id.co.nds.dbaccess.connection.implement.SimpleDSEnt" singleton="true">
+		<property name="name" value="driverManaMySQL2" />
+		<property name="driver" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/test" />
+		<property name="username" value="root" />
+		<property name="password" value="passw0rd" />
+	</bean>
+	<!-- END of DATA SOURCE CONFIGURATIOn -->
+	
+	
+	<!-- REGIONAL PAGING CONFIGURATION -->
+	<bean id="microsoftsqlserver" class="id.co.nds.dbaccess.sqlpaging.implement.SQLPagingMicrosoftSqlServerImpl" />
+	<bean id="oracle" class="id.co.nds.dbaccess.sqlpaging.implement.SQLPagingMicrosoftSqlServerImpl" />
+	<bean id="mysql" class="id.co.nds.plugin.sqlpaging.SQLPagingMySQL" singleton="false" />
+	<bean id="postgresql" class="id.co.nds.plugin.sqlpaging.SQLPagingPostgre" singleton="false" />
+	<!-- END of REGIONAL PAGING CONFIGURATION -->
+</beans>

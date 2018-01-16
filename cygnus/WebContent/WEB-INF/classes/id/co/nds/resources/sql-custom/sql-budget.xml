@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<data-access>
+    <statement id="searchCoaForPsBudget">
+    	<![CDATA[
+			select * from (
+				select coa.coa_id, coa.coa_name, coa.segment_id, seg.segment_name, coa_type, ps.budget_amt, ps.create_date, ps.create_by from ms_coa coa
+				inner join ms_segment seg on coa.segment_id = seg.segment_id
+				left join ps_budget_plan ps on coa.coa_id = ps.coa_id
+			) as a where 1=1 {criterias} {orderBy}
+    	]]>
+    </statement>
+    
+    <statement id="getSummaryPsBudgetPlan">
+    	<![CDATA[
+			select count(1) total_coa_set, sum(budget_amt) total_budget from ps_budget_plan
+    	]]>
+    </statement>    
+    
+    <statement id="activate">
+    	<![CDATA[
+			insert into {destTable} (budget_id, coa_id, budget_amt, create_date, create_by)
+			select budget_id, coa_id, budget_amt, create_date, create_by from {tableSource};    	
+    	]]>
+    </statement> 
+</data-access>

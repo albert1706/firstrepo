@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<data-access>
+    <!--GENERATE HOST UPLOAD-->
+
+	<statement id="getCandidateParentLv2">
+    	<![CDATA[
+			select acc_lv1_id, acc_lv1_name
+			from ms_acc_lv1 lv1
+			where lv2.id = {parentId}
+    	]]>
+    </statement>
+    <statement id="getCandidateParentLv3">
+    	<![CDATA[
+			select acc_lv1_id, acc_lv1_name, acc_lv2_id, acc_lv2_name
+			from ms_acc_lv1 lv1
+			join ms_acc_lv2 lv2 on lv1.id = lv2.parent_id
+			where lv2.id = {parentId}
+    	]]>
+    </statement>
+    <statement id="getCandidateParentLv4">
+    	<![CDATA[
+			select acc_lv1_id, acc_lv1_name, acc_lv2_id, acc_lv2_name, acc_lv3_id, acc_lv3_name
+			from ms_acc_lv1 lv1
+			join ms_acc_lv2 lv2 on lv1.id = lv2.parent_id
+			left join ms_acc_lv3 lv3 on lv2.id = lv3.parent_id
+			where lv3.id = {parentId}
+    	]]>
+    </statement>
+</data-access>

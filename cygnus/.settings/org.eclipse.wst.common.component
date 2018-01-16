@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="cygnus">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/jnds"/>
+        <dependent-module archiveName="Aquarius.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Aquarius/Aquarius">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="struts2-jasperreports-plugin-2.3.15.1-DCH.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/struts2-jasperreports-plugin-2.3.15.1-DCH/struts2-jasperreports-plugin-2.3.15.1-DCH">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/cygnus/build/classes"/>
+        <property name="context-root" value="cygnus"/>
+    </wb-module>
+</project-modules>
