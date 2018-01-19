@@ -3,8 +3,6 @@
 	<name>cygnus</name>
 	<comment></comment>
 	<projects>
-		<project>Aquarius</project>
-		<project>struts2-jasperreports-plugin-2.3.15.1-DCH</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
